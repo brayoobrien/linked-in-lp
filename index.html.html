@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brian Mosoti · Medical AI Annotation Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f3;
+      --bg-dark: #0f0f0e;
+      --text: #0f0f0e;
+      --text-secondary: #5a5a56;
+      --text-tertiary: #9a9a94;
+      --border: rgba(15,15,14,0.12);
+      --border-md: rgba(15,15,14,0.22);
+      --accent: #25D366;
+      --radius: 10px;
+      --radius-lg: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      border-bottom: 0.5px solid var(--border);
+      padding: 1.25rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    nav .inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .logo span { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .available-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot-green {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #3B6D11;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.25rem;
+    }
+    .divider { height: 0.5px; background: var(--border); margin: 3.5rem 0; }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-wa {
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-wa:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ══ HERO ══ */
+    .hero { padding: 5.5rem 0 4rem; }
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--border-md);
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5.5vw, 50px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+    .hero h1 .accent { color: var(--text-secondary); }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 580px;
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+    }
+    .authority-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 14px;
+      margin-bottom: 2rem;
+    }
+    .authority-proof::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+    .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+    /* ══ STATS ══ */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 3.5rem;
+    }
+    .stat { background: var(--bg-secondary); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
+    .stat-num { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; margin-bottom: 3px; }
+    .stat-label { font-size: 12px; color: var(--text-secondary); font-weight: 400; line-height: 1.4; }
+
+    /* ══ PROBLEM ══ */
+    .problem-section {
+      background: var(--bg-dark);
+      color: #f0f0ee;
+      padding: 5rem 0;
+      margin: 0 0 0;
+    }
+    .problem-section .section-label { color: #555552; }
+    .problem-section h2 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    .problem-section h2 .accent { color: #888884; }
+    .problem-body { font-size: 15px; color: #a0a09c; line-height: 1.85; max-width: 600px; }
+    .problem-body p { margin-bottom: 1.25rem; }
+    .problem-body p:last-child { margin-bottom: 0; }
+    .problem-provocation {
+      margin-top: 2.5rem;
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid #2a2a28;
+      border-left: 3px solid #555552;
+      border-radius: 4px;
+      font-size: 15px;
+      color: #d0d0cc;
+      font-style: italic;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ══ SOLUTION ══ */
+    .solution-section { padding: 3.5rem 0 0; }
+    .solution-section h2 {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.75px;
+      margin-bottom: 2rem;
+      max-width: 580px;
+    }
+    .contrast-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 13px; }
+    .contrast-table th {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .contrast-table th:last-child { color: var(--text); }
+    .contrast-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 0.5px solid var(--border);
+      color: var(--text-secondary);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+    .contrast-table td:last-child { color: var(--text); font-weight: 500; }
+    .contrast-table tr:last-child td { border-bottom: none; }
+    .contrast-table tr:nth-child(even) td { background: var(--bg-secondary); }
+    .solution-body { font-size: 15px; color: var(--text-secondary); line-height: 1.85; max-width: 600px; margin-bottom: 1.25rem; }
+    .solution-close { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text); font-weight: 700; letter-spacing: 0.03em; }
+
+    /* ══ SERVICES ══ */
+    .services-section h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 2rem;
+      max-width: 540px;
+      line-height: 1.2;
+    }
+    .services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 3rem; }
+    .svc {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      background: var(--bg);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .svc:hover { border-color: var(--border-md); transform: translateY(-2px); }
+    .svc-icon { font-size: 20px; margin-bottom: 0.75rem; }
+    .svc-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.5rem; }
+    .svc h3 { font-size: 14px; font-weight: 700; margin-bottom: 0.5rem; }
+    .svc p { font-size: 12px; color: var(--text-secondary); line-height: 1.7; font-weight: 400; }
+
+    /* ══ CREDIBILITY ══ */
+    .credibility-section h2 {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.75px;
+      margin-bottom: 1.75rem;
+      max-width: 520px;
+      line-height: 1.15;
+    }
+    .bio-text { font-size: 15px; color: var(--text-secondary); line-height: 1.85; max-width: 620px; margin-bottom: 2.5rem; }
+    .bio-text p { margin-bottom: 1.1rem; }
+    .bio-text p:last-child { margin-bottom: 0; }
+    .cred-bars { display: flex; flex-direction: column; gap: 10px; }
+    .cred-bar { display: flex; align-items: flex-start; gap: 1rem; background: var(--bg-secondary); border-radius: var(--radius); padding: 1rem 1.25rem; }
+    .cred-bar-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+    .cred-bar-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 3px; }
+    .cred-bar-value { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.5; }
+
+    /* ══ STACK ══ */
+    .stack { margin-bottom: 3rem; }
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 13px;
+      color: var(--text-secondary);
+      transition: background 0.2s, color 0.2s;
+    }
+    .pill:hover { background: var(--text); color: var(--bg); cursor: default; }
+    .pill.highlight { background: var(--bg); border-color: var(--border-md); color: var(--text); font-weight: 700; }
+
+    /* ══ TESTIMONIAL ══ */
+    .testimonial {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial::before {
+      content: '"';
+      font-family: 'Space Mono', monospace;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--border);
+      position: absolute;
+      top: 8px; right: 20px;
+    }
+    .testimonial p { font-size: 15px; line-height: 1.8; color: var(--text); font-weight: 400; margin-bottom: 1rem; max-width: 90%; }
+    .testimonial cite { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-tertiary); font-style: normal; }
+
+    /* ══ CLOSING CTA ══ */
+    .cta-section {
+      background: var(--bg-dark);
+      color: #f0f0ee;
+      padding: 5rem 0;
+    }
+    .cta-section .section-label { color: #555552; }
+    .cta-section h2 {
+      font-size: clamp(28px, 4.5vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+      max-width: 580px;
+    }
+    .cta-body { font-size: 15px; color: #a0a09c; line-height: 1.85; max-width: 560px; margin-bottom: 2.5rem; }
+    .cta-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .cta-micro { font-family: 'Space Mono', monospace; font-size: 11px; color: #555552; line-height: 1.7; }
+
+    /* ══ CONTACT FORM ══ */
+    .contact-wrap { padding: 4rem 0 0; }
+    .contact-block {
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      padding: 0 2rem;
+    }
+    .contact-inner {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .contact-inner h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .contact-inner > p { font-size: 14px; color: var(--text-secondary); margin-bottom: 2rem; font-weight: 400; }
+    .email-form { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .email-form input, .email-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 0.5px solid var(--border-md);
+      border-radius: 7px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      outline: none;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+    .email-form input:focus, .email-form textarea:focus { border-color: var(--text); }
+    .email-form textarea { height: 100px; line-height: 1.6; }
+    .btn-send {
+      width: 100%;
+      height: 44px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-send:hover { opacity: 0.85; transform: translateY(-1px); }
+    .sent-msg { display: none; font-family: 'Space Mono', monospace; font-size: 12px; color: #3B6D11; text-align: center; margin-top: 6px; }
+
+    /* ══ FOOTER ══ */
+    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 0 2rem; }
+    footer .inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .copy { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-tertiary); }
+    .foot-links { display: flex; gap: 1.5rem; }
+    .foot-links a { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-tertiary); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--text); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 600px) {
+      .services { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .contact-inner { padding: 1.75rem 1.25rem; }
+      .contrast-table { font-size: 12px; }
+      .contrast-table td, .contrast-table th { padding: 0.65rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="inner">
+      <a class="logo" href="#"><span>Brian</span> Mosoti</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#problem">The Problem</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="available-badge">
+          <span class="dot-green"></span> Available for projects
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero fade-up">
+    <div class="container">
+      <div class="eyebrow">Medical AI · Data Annotation Specialist</div>
+      <h1>Your models learn from someone who's read <span class="accent">thousands of real scans.</span></h1>
+      <p class="hero-sub">I build ground-truth medical imaging datasets — ultrasound, MRI, CT, X-ray — annotated with the clinical accuracy that generic labelers can't match. Fewer edge-case failures. More trustworthy models.</p>
+      <div class="authority-proof">
+        4+ years as a practicing diagnostic sonographer and radiographer · Avenue Healthcare, Nairobi
+      </div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Get a free dataset audit →</a>
+        <a class="btn-wa" href="https://wa.me/254728521478?text=Hi%20Brian%2C%20I%27d%20like%20to%20discuss%20a%20medical%20imaging%20annotation%20project." target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.857L.057 23.428a.75.75 0 0 0 .921.921l5.571-1.476A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.726 9.726 0 0 1-4.964-1.355l-.356-.211-3.305.875.876-3.305-.211-.356A9.726 9.726 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          See how I work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="container">
+    <div class="stats">
+      <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Years clinical imaging experience</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Modalities: US · MRI · CT · X-ray</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Remote-ready, async workflow</div></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem-section" id="problem">
+    <div class="container">
+      <div class="section-label">The Annotation Problem Nobody Talks About</div>
+      <h2>Most medical AI models don't fail because of bad architecture. <span class="accent">They fail because of bad data.</span></h2>
+      <div class="problem-body">
+        <p>When your training images are labeled by annotators who've never held a transducer or read a DICOM file, the model learns the wrong things — confidently. Missed lesion boundaries. Misclassified pathology. Anatomical structures labeled by guesswork.</p>
+        <p>That doesn't show up in your loss curve. It shows up when the model meets a real patient.</p>
+        <p>Bad annotation isn't a minor QA issue. It's a six-figure retraining cost, a delayed FDA clearance, or worse — a clinical tool that nobody trusts enough to deploy.</p>
+      </div>
+      <div class="problem-provocation">The dataset you're training on right now — do you actually know who labeled it?</div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="container solution-section">
+    <div class="section-label">The Clinical Difference</div>
+    <h2>There's a difference between someone who labels an image and someone who understands it.</h2>
+    <table class="contrast-table">
+      <thead>
+        <tr>
+          <th>Generic Annotator</th>
+          <th>Brian Mosoti</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Follows a labeling guide</td><td>Understands the pathology behind the label</td></tr>
+        <tr><td>Draws bounding boxes</td><td>Identifies anatomical structures and variants</td></tr>
+        <tr><td>Flags uncertainty as "unclear"</td><td>Recognizes rare presentations from clinical experience</td></tr>
+        <tr><td>Learned from tutorials</td><td>4+ years reading real scans on real patients</td></tr>
+        <tr><td>Delivers files</td><td>Delivers clinically defensible ground truth</td></tr>
+      </tbody>
+    </table>
+    <p class="solution-body">I don't just annotate images. I interpret them — the same way I did daily as a diagnostic sonographer and radiographer at Avenue Healthcare. That means your model trains on labels that reflect how pathology actually presents, not how it looks in a textbook. Edge cases get handled correctly the first time. Your QA rounds get shorter. Your model gets smarter, faster.</p>
+    <p class="solution-close">This is what clinical expertise inside your pipeline looks like.</p>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- SERVICES -->
+  <section class="container services-section" id="services">
+    <div class="section-label">What You Get</div>
+    <h2>Every engagement is built around one thing — data your model can actually learn from.</h2>
+    <div class="services">
+      <div class="svc">
+        <div class="svc-icon">🎯</div>
+        <div class="svc-tag">Annotation</div>
+        <h3>Medical Image Labeling</h3>
+        <p>Your model trains on labels a clinician would stake their diagnosis on — not approximations. Ultrasound, MRI, CT, and X-ray annotated with anatomical precision using BI-RADS, PI-RADS, Lung-RADS, and RadLex.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">✅</div>
+        <div class="svc-tag">QA / Validation</div>
+        <h3>Dataset Quality Assurance</h3>
+        <p>Catch the errors that silently corrupt model performance before they reach training. Multi-level review, metadata verification, and consistency audits that give your dataset a clinical seal of approval.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🧭</div>
+        <div class="svc-tag">Consulting</div>
+        <h3>Clinical Annotation Guidelines</h3>
+        <p>Stop building labeling pipelines that your clinical advisors will reject later. I help ML teams design protocols grounded in real radiology workflows — so your guidelines hold up under clinical scrutiny from day one.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🗂️</div>
+        <div class="svc-tag">DICOM</div>
+        <h3>DICOM Interpretation & Metadata</h3>
+        <p>Your pipeline shouldn't break on the files that matter most. I read, validate, and correct DICOM files and metadata so your imaging data is structured, complete, and training-ready.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- CREDIBILITY -->
+  <section class="container credibility-section" style="margin-bottom:3.5rem;">
+    <div class="section-label">Why It Matters Who Annotates Your Data</div>
+    <h2>Built in the clinic. Applied to your pipeline.</h2>
+    <div class="bio-text">
+      <p>I'm Brian Mosoti — a diagnostic sonographer and radiographer with 4+ years of hands-on clinical experience reading real scans on real patients in active hospital environments.</p>
+      <p>I've worked across ultrasound, MRI, CT, and digital X-ray — performing, interpreting, and documenting studies across abdominal, obstetric, gynecologic, vascular, and musculoskeletal imaging. I've supported image-guided surgical procedures and worked within multidisciplinary clinical teams where precision wasn't optional.</p>
+      <p>That clinical foundation is now applied directly to medical AI — building datasets that reflect how pathology actually presents, not how it's described in annotation guides.</p>
+    </div>
+    <div class="cred-bars">
+      <div class="cred-bar"><div class="cred-bar-icon">🏥</div><div><div class="cred-bar-label">Clinical Experience</div><div class="cred-bar-value">4+ years · Avenue Healthcare & Nairobi West Hospital</div></div></div>
+      <div class="cred-bar"><div class="cred-bar-icon">🖥️</div><div><div class="cred-bar-label">Imaging Modalities</div><div class="cred-bar-value">Ultrasound · MRI · CT · Digital X-ray · Doppler · OB/GYN</div></div></div>
+      <div class="cred-bar"><div class="cred-bar-icon">📋</div><div><div class="cred-bar-label">Standards & Taxonomies</div><div class="cred-bar-value">BI-RADS · PI-RADS · Lung-RADS · RadLex · DICOM</div></div></div>
+      <div class="cred-bar"><div class="cred-bar-icon">🤝</div><div><div class="cred-bar-label">AI Collaboration</div><div class="cred-bar-value">Mecor AI · Annotation leads · ML engineers · Cross-functional remote teams</div></div></div>
+      <div class="cred-bar"><div class="cred-bar-icon">📍</div><div><div class="cred-bar-label">Location & Availability</div><div class="cred-bar-value">Nairobi, Kenya · Available globally · 100% remote</div></div></div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="container">
+    <div class="stack">
+      <div class="section-label">Clinical & Technical Stack</div>
+      <div class="stack-grid">
+        <span class="pill">Ultrasound</span>
+        <span class="pill highlight">MRI</span>
+        <span class="pill">CT imaging</span>
+        <span class="pill">Digital X-ray</span>
+        <span class="pill">DICOM</span>
+        <span class="pill">BI-RADS</span>
+        <span class="pill">PI-RADS</span>
+        <span class="pill">Lung-RADS</span>
+        <span class="pill">RadLex</span>
+        <span class="pill">PACS</span>
+        <span class="pill">Doppler</span>
+        <span class="pill">OB/GYN imaging</span>
+        <span class="pill">Image segmentation</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- TESTIMONIAL -->
+  <section class="container">
+    <div class="testimonial">
+      <p>Brian brings something rare to AI annotation work — actual clinical knowledge. He doesn't just label images, he understands what he's looking at. That makes the difference between mediocre training data and data that builds trustworthy models.</p>
+      <cite>— Annotation Lead, Healthcare AI team</cite>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="section-label">Ready When You Are</div>
+      <h2>Your next dataset deserves a clinician, not a crowdsource.</h2>
+      <p class="cta-body">Whether you're starting a new imaging dataset, cleaning up an existing one, or building annotation guidelines your clinical team will actually approve — let's talk about what your project needs. No lengthy onboarding. No agency overhead. Just senior clinical expertise, directly in your pipeline.</p>
+      <div class="cta-actions">
+        <a class="btn-primary" href="#contact">Get a free dataset audit →</a>
+        <a class="btn-wa" href="https://wa.me/254728521478?text=Hi%20Brian%2C%20I%27d%20like%20to%20discuss%20a%20medical%20imaging%20annotation%20project." target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.857L.057 23.428a.75.75 0 0 0 .921.921l5.571-1.476A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.726 9.726 0 0 1-4.964-1.355l-.356-.211-3.305.875.876-3.305-.211-.356A9.726 9.726 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Message me on WhatsApp
+        </a>
+      </div>
+      <div class="cta-micro">Typical response within 24 hours · Remote-ready · Available for contract and long-term engagements</div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-wrap" id="contact">
+    <div class="contact-block">
+      <div class="contact-inner">
+        <h2>Send me a direct message.</h2>
+        <p>It'll land straight in my inbox at brainmosoti30@gmail.com</p>
+        <div class="email-form">
+          <input type="text" id="sender-name" placeholder="Your name" />
+          <input type="email" id="sender-email" placeholder="Your email" />
+          <textarea id="sender-msg" placeholder="Tell me about your project — modality, dataset size, timeline..."></textarea>
+          <button class="btn-send" onclick="sendEmail()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send message
+          </button>
+          <div class="sent-msg" id="sent-msg">✓ Opening your email client — message ready to send!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="inner">
+      <span class="copy">© 2026 Brian Mosoti · Nairobi, Kenya</span>
+      <div class="foot-links">
+        <a href="https://www.linkedin.com/in/brian-mosoti-39a032213" target="_blank">LinkedIn</a>
+        <a href="https://wa.me/254728521478" target="_blank">WhatsApp</a>
+        <a href="mailto:brainmosoti30@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function sendEmail() {
+      var name = document.getElementById('sender-name').value.trim();
+      var email = document.getElementById('sender-email').value.trim();
+      var msg = document.getElementById('sender-msg').value.trim();
+      if (!name || !msg) { alert('Please fill in your name and message.'); return; }
+      var subject = encodeURIComponent('Project Inquiry from ' + name);
+      var body = encodeURIComponent('Hi Brian,\n\n' + msg + '\n\nFrom: ' + name + (email ? '\nReply to: ' + email : ''));
+      window.location.href = 'mailto:brainmosoti30@gmail.com?subject=' + subject + '&body=' + body;
+      document.getElementById('sent-msg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
